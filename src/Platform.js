@@ -1,5 +1,6 @@
 import React from 'react';
 import Web3 from 'web3';
+import Summoning from './components/summoning/Summoning';
 
 
 class Wrapper extends React.Component {
@@ -141,7 +142,7 @@ class Wrapper extends React.Component {
   Summoning() {
     const web3 = new Web3(window.ethereum);
     return (
-      <p>Lets sacrifice you!</p>
+      <Summoning />      
     )
   }
 
