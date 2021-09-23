@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Platform from './Platform';
+import Wrapper from './Platform';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Platform />
+    <Wrapper />
   </React.StrictMode>,
   document.getElementById('root')
 );
