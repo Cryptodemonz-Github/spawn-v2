@@ -48,11 +48,15 @@
    
 
     
-    <audio autoplay loop src="/music/piano.mp3">
+    <audio autoplay loop src="/music/piano.mp3" id="piano">
       <p>If you are reading this, it is because your browser does not support the audio element.</p>
       </audio>
 
-
+      <script>
+        var audio = document.getElementById("piano");
+        audio.volume = 0.3;
+      </script>
+      
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
