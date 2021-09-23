@@ -54,6 +54,22 @@ body {
   .css-typing p:nth-child(3) {
     animation-delay: 3s;
   }
+
+  .followbtn {
+    background-image: url('/images/follow_btn.png');
+    background-color: transparent;
+    border: 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 55px;
+    display: block;
+    margin: 10px auto 0px auto;
+    width: 120px;
+  }
+  .followbtn:hover {
+    background-image: url('/images/follow_btn_hover.png');
+  }
   
   
   

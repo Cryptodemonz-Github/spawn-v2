@@ -3,6 +3,7 @@ import Web3 from 'web3';
 
 
 class Wrapper extends React.Component {
+
   constructor() {
       super();
       this.state = {
@@ -67,7 +68,7 @@ class Wrapper extends React.Component {
                         <p>
                             Now follow me.
                         </p>
-                        <button type="button" onClick={() => { this.setState({moveForward : 'true'}) }}>Follow Satan!</button>
+                        <button type="button" className="followbtn" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
                     </div>
                 )
 
@@ -80,7 +81,7 @@ class Wrapper extends React.Component {
                             <p>
                                 Fine, bring your lowley demonz and follow me.
                             </p>
-                            <button type="button" onClick={() => { this.setState({moveForward : 'true'}) }}>Follow Satan!</button>
+                            <button type="button" className="followbtn" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
                         </div>
                 )
         }
