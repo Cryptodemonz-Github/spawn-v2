@@ -42,15 +42,15 @@ class Wrapper extends React.Component {
             case 'none':
                 return (
                     
-                    <div class="css-typing">
+                    <div className="css-typing">
                         <p>
-                            I'm so glad to see you made it, I thought you wouldn't show up!
+                            I'm so glad to see you made it, I thought you were chicken!
                         </p>
                         <p>
                             We're about to get started
                         </p>
                         <p>
-                            Did you want to join the <a href="#" onClick={() => { this.setState({decision : 'summoning'}) }}>summoning</a> or <a href="#" onClick={ () => { this.setState({decision : 'sacrifice'}) } }>sacrifice</a>?
+                            Do you want to join the <a href="#" onClick={() => { this.setState({decision : 'summoning'}) }}>summoning</a> or <a href="#" onClick={ () => { this.setState({decision : 'sacrifice'}) } }>sacrifice</a>?
                         </p>
                     </div>
                 )
@@ -58,7 +58,7 @@ class Wrapper extends React.Component {
             case 'summoning':
                 return (
                     
-                    <div class="css-typing">
+                    <div className="css-typing">
                         <p>
                             Excellent choice!
                         </p>
@@ -68,20 +68,34 @@ class Wrapper extends React.Component {
                         <p>
                             Now follow me.
                         </p>
-                        <button type="button" className="followbtn" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
+                        <div className="row">
+                            <div className="col text-center">
+                              <button type="button" className="custombtn follow" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
+                            </div>
+                            <div className="col text-center">
+                              <button type="button" className="custombtn leave" onClick={() => { this.setState({decision : 'none'}) }}></button>
+                            </div>
+                        </div>
                     </div>
                 )
 
             case 'sacrifice':
                 return (
-                        <div class="css-typing">
+                        <div className="css-typing">
                             <p>
                             The bloodlust on you!
                             </p>
                             <p>
-                                Fine, bring your lowley demonz and follow me.
+                                Fine, bring your lowley demonz and follow me. Lilith is waiting.
                             </p>
-                            <button type="button" className="followbtn" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
+                            <div className="row">
+                              <div className="col text-center">
+                                <button type="button" className="custombtn follow" onClick={() => { this.setState({moveForward : 'true'}) }}></button>
+                              </div>
+                              <div className="col text-center">
+                                <button type="button" className="custombtn leave" onClick={() => { this.setState({decision : 'none'}) }}></button>
+                              </div>
+                            </div>
                         </div>
                 )
         }
@@ -94,12 +108,12 @@ class Wrapper extends React.Component {
         <div className="top-spacer"></div>
         <div className="row justify-content-md-center">
                 <div className="col-md-6">
-                    <div className="card border-dark bg-dark mb-3">
+                    <div className="card border-dark bg-dark mb-3 dialogue-card">
                         <div className="card-body">
 
                             <div class="row">
                                 <div class="col text-center">
-                                    <img className="mx-auto d-block" src="/images/satan.gif" alt="Satan the almighty" height="300px" />
+                                    <img className="mx-auto d-block" src="/images/lilith.gif" alt="Satan the almighty" height="300px" />
                                 </div>
                             </div>
                             <div class="row">

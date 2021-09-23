@@ -14,6 +14,13 @@ body {
     height: 25vh;
     width: 100%;
 }
+.dialogue-card {
+  background-image: url('/images/card_border.png');
+  background-color: transparent !important;
+  background-size: 100% 100%;
+  border: none;
+  padding: 50px;
+}
 .dialogue-container {
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
@@ -24,7 +31,7 @@ body {
     padding: 10px;
 }
 .card-body.dialogue {
-    max-width: 500px;
+    max-width: 600px;
 }
 
 .css-typing a {
@@ -55,20 +62,28 @@ body {
     animation-delay: 3s;
   }
 
-  .followbtn {
-    background-image: url('/images/follow_btn.png');
+  .custombtn {
     background-color: transparent;
     border: 0px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     height: 55px;
-    display: block;
+    display: inline-block;
     margin: 10px auto 0px auto;
     width: 120px;
   }
-  .followbtn:hover {
+  .custombtn.follow {
+    background-image: url('/images/follow_btn.png');
+  }
+  .custombtn.follow:hover {
     background-image: url('/images/follow_btn_hover.png');
+  }
+  .custombtn.leave {
+    background-image: url('/images/leave_btn.png');
+  }
+  .custombtn.leave:hover {
+    background-image: url('/images/leave_btn_hover.png');
   }
   
   
