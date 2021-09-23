@@ -1,0 +1,97 @@
+body {
+    background-image: url('../images/sacrificial-chamber-animated.gif');
+    background-size: cover;
+    background-color: black;
+    height: 100vh;
+    background-position: top center;
+    background-repeat: no-repeat;
+    color: #e3e3e3;
+}
+.container.full {
+    height: 100vh;
+}
+.top-spacer {
+    height: 25vh;
+    width: 100%;
+}
+.dialogue-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    border-radius: 15px;
+    overflow-wrap: break-word;
+    padding: 10px;
+}
+.card-body.dialogue {
+    max-width: 500px;
+}
+
+.css-typing a {
+    color: red;
+    text-decoration: none;
+}
+.css-typing p {
+    border-right: none;
+    font-family: "Courier";
+    font-size: 14px;
+    white-space: prewrap;
+    opacity: 0;
+    -webkit-animation: type2 1s steps(40, end);
+    animation: type2 1s steps(80, end);
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+
+  .css-typing p:nth-child(1) {
+    animation-delay: 1s;
+  }
+  
+  .css-typing p:nth-child(2) {
+    animation-delay: 2s;
+  }
+  
+  .css-typing p:nth-child(3) {
+    animation-delay: 3s;
+  }
+  
+  
+  
+  @keyframes type2 {
+    0% {
+      width: 50;
+    }
+    1% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.5;
+    }
+    99.9% {
+      border-right: none;
+    }
+    100% {
+      opacity: 1;
+
+    }
+  }
+  
+  @-webkit-keyframes type2 {
+    0% {
+      width: 50;
+    }
+    1% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.5;
+    }
+    99.9% {
+      border-right: none;
+    }
+    100% {
+      opacity: 1;
+      border: none;
+    }
+  }
+  
