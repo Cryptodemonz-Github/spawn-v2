@@ -1,6 +1,7 @@
 import Web3 from "web3";
 import Demonzv1_testing from "../../config/Demonzv1_testnet.json";
 import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
+import fetch from "node-fetch";
 import { ConnectMetaMask } from "../../Connect";
 
 const Sacrificing = () => {
@@ -17,7 +18,7 @@ const Sacrificing = () => {
   let account = "0x21751deC771cE1F6AA6017d8Ca7332f122652FfD";
   let idArray = [1, 2, 3];
 
-  const getTokenIDs = (owner) => {
+  const getTokenIDs = async (owner) => {
     const tokenCount = await contractV1.methods.balanceOf(owner).call();
     const tokenIDs = Array(tokenCount);
     for (let i = 0; i < tokenCount; i++) {
@@ -27,6 +28,20 @@ const Sacrificing = () => {
     }
 
     return tokenIDs;
+  };
+
+  const getImg = async (tokenID) => {
+    try {
+      const response = await fetch(
+        "https://blbstrgacct.blob.core.windows.net/metadata/" +
+          tokenID +
+          ".json"
+      );
+      const data = await response.json();
+      const image = data.image;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const Sacrifice = async () => {
