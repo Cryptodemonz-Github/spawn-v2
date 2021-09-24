@@ -14,6 +14,7 @@ const Summoning = () => {
     let account = "0x21751deC771cE1F6AA6017d8Ca7332f122652FfD";
     let amount = 1;
 
+    //will take amount
     const Summon = async () => {
         contract.methods.mintToken(amount).send({
             from: account,
