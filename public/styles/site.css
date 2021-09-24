@@ -37,6 +37,11 @@ body {
 .css-typing a {
     color: red;
     text-decoration: none;
+    font-size: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    border-radius: 8px;
+    padding: 3px;
 }
 .css-typing p {
     border-right: none;
