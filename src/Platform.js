@@ -2,6 +2,7 @@ import React from "react";
 import Web3 from "web3";
 import Summoning from "./components/summoning/Summoning";
 import CallDemonz from "./test-contracts/Demonzv1_testing";
+import Demonzv2_testing from "./config/Demonzv2_testnet.json";
 
 class Wrapper extends React.Component {
   constructor() {
@@ -10,12 +11,69 @@ class Wrapper extends React.Component {
       welcomeMsg: true,
       decision: "none",
       moveForward: "false",
+      web3: undefined,
+      contract: undefined,
+      connected: false,
+      accounts: [],
     };
   }
 
-  componentDidMount() {
-    console.log("Loaded successfully");
-  }
+  SetAccounts = (accounts) => {
+    this.setState({ accounts: accounts });
+  };
+
+  SetConnected = (connected) => {
+    this.setState({ connected: connected });
+  };
+
+  Init = () => {
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(
+        Demonzv2_testing,
+        "0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
+      );
+      this.setState({ web3: web3 });
+      this.setState({ contract: contract });
+    }
+  };
+
+  ConnectMetaMask = async () => {
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x61" }],
+        });
+      } catch (error) {
+        console.error(error);
+      }
+      this.setState({ accounts: accounts });
+    } else {
+      alert(
+        "MetaMask is not installed. Please consider installing it: https://metamask.io/download.html"
+      );
+      return 0;
+    }
+  };
+
+  RequestAccounts = async () => {
+    const accounts = await window.ethereum
+      .request({
+        method: "eth_accounts",
+      })
+      .catch((err) => {
+        if (err.code === 4001) {
+          console.log("Please connect to MetaMask.");
+        } else {
+          console.error(err);
+        }
+      });
+    this.setState({ accounts: accounts });
+  };
 
   Handler() {
     if (this.state.moveForward === "false") {
@@ -29,6 +87,23 @@ class Wrapper extends React.Component {
           return this.Summoning();
       }
     }
+  }
+
+  componentWillMount() {
+    this.Init();
+    if (window.ethereum && window.ethereum.isConnected) {
+      this.RequestAccounts();
+    }
+
+    if (this.state.accounts !== undefined && this.state.accounts.length > 0) {
+      this.setState({ connected: true });
+    } else {
+      this.setState({ connected: false });
+    }
+  }
+
+  componentDidMount() {
+    console.log("Loaded successfully");
   }
 
   WelcomeMsg() {
@@ -161,13 +236,20 @@ class Wrapper extends React.Component {
 
   // just need a place to call test contract
   Sacrifice() {
-    const web3 = new Web3(window.ethereum);
     return <CallDemonz />;
   }
 
   Summoning() {
-    const web3 = new Web3(window.ethereum);
-    return <Summoning />;
+    return (
+      <Summoning
+        connected={this.state.connected}
+        contract={this.state.contract}
+        accounts={this.state.accounts}
+        ConnectMetaMask={this.ConnectMetaMask}
+        setAccounts={this.SetAccounts}
+        setConnected={this.SetConnected}
+      />
+    );
   }
 
   render() {
