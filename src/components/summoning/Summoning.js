@@ -3,11 +3,8 @@ import Web3 from "web3";
 import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
 
 const Summoning = () => {
-  const web3 = new Web3(window.ethereum);
-  const contract = new web3.eth.Contract(
-    Demonzv2_testing,
-    "0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
-  );
+  const [web3, setWeb3] = useState(undefined);
+  const [contract, setContract] = useState(undefined);
   const [connected, setConnected] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
 
@@ -17,7 +14,19 @@ const Summoning = () => {
 
   useEffect(() => {
     if (window.ethereum && window.ethereum.isConnected) {
-      setAccounts(RequestAccounts());
+      RequestAccounts();
+    }
+    if (window.ethereum) {
+      const init = async () => {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(
+          Demonzv2_testing,
+          "0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
+        );
+        setWeb3(web3);
+        setContract(contract);
+      };
+      init();
     }
   }, []);
 
@@ -31,8 +40,9 @@ const Summoning = () => {
 
   //will take amount
   const Summon = async () => {
-    contract.methods.mintToken(amount).send({
-      from: account,
+    await contract.methods.mintToken(amount).send({
+      from: accounts[0],
+      value: amount * web3.utils.toWei(web3.utils.toBN(60), "milli"),
       gasLimit: amount * "300000",
       maxPriorityFeePerGas: null,
       maxFeePerGas: null,
@@ -73,7 +83,7 @@ const Summoning = () => {
           console.error(err);
         }
       });
-    return accs;
+    setAccounts(accs);
   };
 
   return (
