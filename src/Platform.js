@@ -1,7 +1,7 @@
 import React from "react";
 import Web3 from "web3";
 import Summoning from "./components/summoning/Summoning";
-import CallDemonz from "./test-contracts/Demonzv1_testing";
+import Sacrificing from "./components/sacrificing/Sacrificing";
 import Demonzv2_testing from "./config/Demonzv2_testnet.json";
 
 class Wrapper extends React.Component {
@@ -236,7 +236,16 @@ class Wrapper extends React.Component {
 
   // just need a place to call test contract
   Sacrifice() {
-    return <CallDemonz />;
+    return (
+      <Sacrificing
+        connected={this.state.connected}
+        contract={this.state.contract}
+        accounts={this.state.accounts}
+        ConnectMetaMask={this.ConnectMetaMask}
+        setAccounts={this.SetAccounts}
+        setConnected={this.SetConnected}
+      />
+    );
   }
 
   Summoning() {
