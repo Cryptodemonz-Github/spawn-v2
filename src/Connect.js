@@ -19,3 +19,18 @@ export const ConnectMetaMask = async () => {
     return 0;
   }
 };
+
+export const RequestAccounts = async () => {
+  const accs = await window.ethereum
+    .request({
+      method: "eth_accounts",
+    })
+    .catch((err) => {
+      if (err.code === 4001) {
+        console.log("Please connect to MetaMask.");
+      } else {
+        console.error(err);
+      }
+    });
+  return accs;
+};
