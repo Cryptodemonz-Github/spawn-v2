@@ -1,7 +1,6 @@
 import Web3 from "web3";
 import Demonzv1_testing from "../../config/Demonzv1_testnet.json";
 import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
-import fetch from "node-fetch";
 import { useState, useEffect } from "react";
 import { ConnectMetaMask } from "../../Connect";
 
