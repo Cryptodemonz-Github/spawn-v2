@@ -67,12 +67,12 @@ const Sacrificing = (props) => {
     for (let i = 0; i < sacrifice.length; i++) {
       sacrificeIDs.push(Number(sacrifice[i].id));
     }
-    /*
+
     await contractV1.methods
       .setApprovalForAll("0x75c85470F23b5dd690B8E23ff000Af280D7E72F9", true)
       .send({
         from: props.accounts[0],
-      });*/
+      });
     await props.contract.methods.burnV1(sacrificeIDs).send({
       from: props.accounts[0],
     });
