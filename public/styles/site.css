@@ -101,6 +101,12 @@ body {
   .custombtn.leave:hover {
     background-image: url('/images/leave_btn_hover.png');
   }
+  .custombtn.summon {
+    background-image: url('/images/summon_btn.png');
+  }
+  .custombtn.summon:hover {
+    background-image: url('/images/summon_btn_hover.png');
+  }
   
   @keyframes type2 {
     0% {
@@ -217,6 +223,53 @@ input[type=range]::-moz-range-track {
 p.blood {
   font-family: bloody;
   font-size: 80px;
-  color: #8a0700;
+  color: #750600;
   text-shadow: 1px 1px #000000;
+  animation: MoveUpDown 1.5s linear infinite;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    color: #750600;
+  }
+  50% {
+    color: #b80900;
+  }
+}
+
+.summon-card {
+  background-image: url('/images/summon_container.png');
+  padding-top: 200px;
+  background-color: transparent !important;
+  background-size: 100% 100%;
+  border: none;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+}
+
+.metamask {
+  background-image: url('/images/metadrop.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 200px;
+  width: 300px;
+  text-align: center;
+  padding-top: 50px;
+  padding-left: 10px;
+  padding-right: 2px;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;          /* Firefox */
+  image-rendering: -o-crisp-edges;            /* Opera */
+  image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+  top: 0px;
+  right: 10vw;
+}
+
+.metamask p {
+  color: #c9c6b5;
+}
+.meta-title {
+  color: #a19e91;
 }

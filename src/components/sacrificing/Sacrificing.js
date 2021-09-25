@@ -12,7 +12,7 @@ const Sacrificing = (props) => {
   const [sacrifice, setSacrifice] = useState([]);
 
   // dummy
-  let account = "0x21751deC771cE1F6AA6017d8Ca7332f122652FfD";
+  let account = "0xaf73e435622d56009095B0b15c3Db1A733142D8D";
   let idArray = [1];
   let amount = 1;
 
@@ -35,18 +35,20 @@ const Sacrificing = (props) => {
   }, [props.accounts]);
 
   useEffect(() => {
-    if (contractV1 !== undefined) {
+    if (contractV1 !== undefined && props.accounts[0] !== undefined) {
       getTokens();
     }
   }, [contractV1]);
 
+
+
   const getTokens = async () => {
     const tokenCount = await contractV1.methods
-      .balanceOf(props.accounts[0])
+      .balanceOf(account)
       .call();
     for (let i = 0; i < tokenCount; i++) {
       let tokenId = await contractV1.methods
-        .tokenOfOwnerByIndex(props.accounts[0], i)
+        .tokenOfOwnerByIndex(account, i)
         .call();
       getImage(tokenId);
     }
@@ -72,6 +74,8 @@ const Sacrificing = (props) => {
     }
   };
 
+
+
   const Sacrifice = async () => {
     await props.contract.methods.burnV1([10, 11, 12]).send({
       from: props.accounts[0],
@@ -87,9 +91,9 @@ const Sacrificing = (props) => {
           <button onClick={Sacrifice}>Sacrifice</button>
           <div>
             {images.map((d) => (
-              <>
+              <div>
                 <img src={d.image} height="100px" width="100px" />
-              </>
+              </div>
             ))}
           </div>
         </>

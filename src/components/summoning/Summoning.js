@@ -43,14 +43,22 @@ const Summoning = (props) => {
     if (!props.connected) {
       return <button onClick={props.ConnectMetaMask}>Connect</button>;
     } else {
-        return <p>youre connected</p>;
+        return (
+          <p>
+           <span className="meta-title">Connected: </span>
+          <span>{props.accounts[0].slice(0,6)}
+          ...
+          {props.accounts[0].slice(props.accounts[0].length - 4, props.accounts[0].length)}
+          </span>
+        </p>
+      );
     }
   }
 
   return (
     <div className="container-xl">
       <div className="row">
-        <div className="col">
+        <div className="metamask">
           {metaMaskUI()}
         </div>
       </div>
@@ -60,7 +68,7 @@ const Summoning = (props) => {
 
       <div className="row justify-content-md-center">
         <div className="col-sm-5">
-          <div className="card border-dark bg-dark mb-3 dialogue-card">
+          <div className="card border-dark bg-dark mb-3 summon-card">
             <div className="card-body">
               <div className="row">
                 <div className="col text-center">
@@ -84,7 +92,7 @@ const Summoning = (props) => {
               </div>
               <div className="row">
                 <div className="col text-center mt-2">
-                <button onClick={Summon}>Summon</button>
+                <button className="custombtn summon" onClick={Summon}></button>
                 </div>
               </div>
             </div>
