@@ -39,6 +39,11 @@ class Wrapper extends React.Component {
     }
   };
 
+  DisconnectMetaMask = () => {
+    this.setState({ connected: false });
+    this.setState({ accounts: [] });
+  };
+
   ConnectMetaMask = async () => {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({
@@ -92,6 +97,7 @@ class Wrapper extends React.Component {
 
   componentWillMount() {
     this.Init();
+
     if (window.ethereum && window.ethereum.isConnected) {
       this.RequestAccounts();
     }
@@ -245,6 +251,7 @@ class Wrapper extends React.Component {
         ConnectMetaMask={this.ConnectMetaMask}
         setAccounts={this.SetAccounts}
         setConnected={this.SetConnected}
+        DisconnectMetaMask={this.DisconnectMetaMask}
       />
     );
   }
@@ -258,6 +265,7 @@ class Wrapper extends React.Component {
         ConnectMetaMask={this.ConnectMetaMask}
         setAccounts={this.SetAccounts}
         setConnected={this.SetConnected}
+        DisconnectMetaMask={this.DisconnectMetaMask}
       />
     );
   }
