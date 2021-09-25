@@ -41,7 +41,7 @@ const Summoning = (props) => {
 
   const metaMaskUI = () => {
     if (!props.connected) {
-      return <button onClick={props.ConnectMetaMask}>Connect</button>;
+      return <button className="metamask-connect" onClick={props.ConnectMetaMask}>Connect to metamask</button>;
     } else {
         return (
           <p>

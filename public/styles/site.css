@@ -167,7 +167,7 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]:focus {
   outline: none; 
   background-color: rgba(0,0,0,0);
-  border: 0px;
+  border: none;
 }
 
 
@@ -191,7 +191,10 @@ input[type=range]::-moz-range-thumb {
   border-radius: 0px;
   background-color:rgba(0,0,0,0);
   background-image: url('/images/skull.png');
+  background-position: center center;
+  background-size: 100% 100%;
   cursor: pointer;
+  border: none;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -253,7 +256,7 @@ p.blood {
   background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;
-  height: 200px;
+  height: 100px;
   width: 300px;
   text-align: center;
   padding-top: 50px;
@@ -272,4 +275,13 @@ p.blood {
 }
 .meta-title {
   color: #a19e91;
+}
+
+.metamask-connect {
+  background-color: rgba(0,0,0,0);
+  border: 0px;
+  font-size: 14px;
+  color: #c9c6b5;
+  font-weight: normal;
+
 }
