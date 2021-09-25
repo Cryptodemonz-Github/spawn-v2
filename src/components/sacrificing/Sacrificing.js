@@ -139,7 +139,9 @@ const Sacrificing = (props) => {
             <div className="image-container">
               {sacrifice.map((d) => (
                 <div>
-                  <img src={d.image} height="100px" width="100px" />
+                  <img src={d.image} height="100px" width="100px" onClick={() => {
+                  setSacrifice(sacrifice.filter(({ id }) => id !== d.id));
+                }} />
                 </div>
               ))}
             </div>
