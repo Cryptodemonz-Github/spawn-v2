@@ -35,7 +35,9 @@ const Summoning = (props) => {
       {!props.connected ? (
         <button onClick={props.ConnectMetaMask}>Connect</button>
       ) : (
-        <button onClick={Summon}>Summon</button>
+        <>
+          <button onClick={Summon}>Summon</button>
+        </>
       )}
     </div>
   );

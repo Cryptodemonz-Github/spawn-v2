@@ -34,6 +34,12 @@ const Sacrificing = (props) => {
     }
   }, [props.accounts]);
 
+  useEffect(() => {
+    if (contractV1 !== undefined) {
+      getTokenIDs();
+    }
+  }, [contractV1]);
+
   const getTokenIDs = async () => {
     const tokenCount = await contractV1.methods
       .balanceOf(props.accounts[0])
@@ -43,16 +49,17 @@ const Sacrificing = (props) => {
         .tokenOfOwnerByIndex(props.accounts[0], i)
         .call();
       setTokenIDs((old) => [...old, tokenId]);
+      getImage(tokenId);
     }
 
-    return tokenIDs;
+    //return tokenIDs;
   };
 
   const getImage = async (tokenID) => {
     const url =
       "https://api.opensea.io/api/v1/assets?token_ids=" +
-      { tokenID } +
-      "&asset_contract_address=0xae16529ed90fafc927d774ea7be1b95d826664e3&order_direction=desc&offset=0&limit=20";
+      tokenID +
+      "&asset_contract_address=0xae16529ed90fafc927d774ea7be1b95d826664e3";
     try {
       const response = await fetch(url, { method: "GET" });
       const json = await response.json();
@@ -74,7 +81,16 @@ const Sacrificing = (props) => {
       {!props.connected ? (
         <button onClick={props.ConnectMetaMask}>Connect</button>
       ) : (
-        <button onClick={Sacrifice}>Sacrifice</button>
+        <>
+          <button onClick={Sacrifice}>Sacrifice</button>
+          <div>
+            {images.map((d) => (
+              <>
+                <img src={d} height="100px" width="100px" />
+              </>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
