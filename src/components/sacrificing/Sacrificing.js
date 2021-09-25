@@ -13,7 +13,7 @@ const Sacrificing = (props) => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
       Demonzv1_testing,
-      "0x0Ca71FDd88e546BDab694185Dd249e8fBc64eFd3"
+      "0xae16529ed90fafc927d774ea7be1b95d826664e3"
     );
     setContractV1(contractV1);
   }, []);
@@ -96,7 +96,7 @@ const Sacrificing = (props) => {
   }
 
   return (
-    <div className="container-xl">
+    <div className="container-fluid">
       <div className="row">
         <div className="metamask">
           {metaMaskUI()}
@@ -109,9 +109,10 @@ const Sacrificing = (props) => {
     <div className="row ">
 
       <div className="col-lg-4">
-        <div className="card border-dark bg-dark mb-3 dialogue-card">
+        <div className="card border-dark bg-dark mb-3 sacrificing-card left text-center">
+          Select which demonz you would like to sacrifice!
+          <div className="image-container">
           {images.map((d) => (
-            <div>
               <img
                 src={d.image}
                 height="100px"
@@ -127,24 +128,27 @@ const Sacrificing = (props) => {
                   ]);
                 }}
               />
-            </div>
           ))}
+          </div>
         </div>
       </div>
 
       <div className="col-lg-4">
-        <div className="card border-dark bg-dark mb-3 dialogue-card">
-            {sacrifice.map((d) => (
-              <div>
-                <img src={d.image} height="100px" width="100px" />
-              </div>
-            ))}
+        <div className="card border-dark bg-dark mb-3 sacrificing-card center text-center">
+            Confirm that these are the demonz you would like to sacrifice!
+            <div className="image-container">
+              {sacrifice.map((d) => (
+                <div>
+                  <img src={d.image} height="100px" width="100px" />
+                </div>
+              ))}
+            </div>
         </div>
       </div>
 
 
       <div className="col-lg-4">
-        <div className="card border-dark bg-dark mb-3 dialogue-card">
+        <div className="card border-dark bg-dark mb-3 sacrificing-card right text-center">
           <button onClick={Sacrifice}>Sacrifice</button>
         </div>
       </div>
