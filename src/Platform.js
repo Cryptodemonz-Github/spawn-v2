@@ -31,7 +31,8 @@ class Wrapper extends React.Component {
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(
         Demonzv2_testing,
-        "0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
+        //"0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
+        "0x61594bA4fe17Cc204112faFff5cf6a4986F5Ce6D"
       );
       this.setState({ web3: web3 });
       this.setState({ contract: contract });
