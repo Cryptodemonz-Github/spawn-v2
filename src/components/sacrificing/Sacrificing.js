@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 const Sacrificing = (props) => {
   const [web3, setWeb3] = useState(undefined);
   const [contractV1, setContractV1] = useState(undefined);
-  const [tokenIDs, setTokenIDs] = useState([]);
-  const [images, setImages] = useState([]); // URLs from OpenSea
+  const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
   const contractV2Addr = "0x61594bA4fe17Cc204112faFff5cf6a4986F5Ce6D";
+  const [sacrifice, setSacrifice] = useState([]);
 
   // dummy
   let account = "0x21751deC771cE1F6AA6017d8Ca7332f122652FfD";
@@ -36,11 +36,11 @@ const Sacrificing = (props) => {
 
   useEffect(() => {
     if (contractV1 !== undefined) {
-      getTokenIDs();
+      getTokens();
     }
   }, [contractV1]);
 
-  const getTokenIDs = async () => {
+  const getTokens = async () => {
     const tokenCount = await contractV1.methods
       .balanceOf(props.accounts[0])
       .call();
@@ -48,7 +48,6 @@ const Sacrificing = (props) => {
       let tokenId = await contractV1.methods
         .tokenOfOwnerByIndex(props.accounts[0], i)
         .call();
-      setTokenIDs((old) => [...old, tokenId]);
       getImage(tokenId);
     }
 
@@ -64,7 +63,10 @@ const Sacrificing = (props) => {
       const response = await fetch(url, { method: "GET" });
       const json = await response.json();
       console.log(json.assets[0].image_url);
-      setImages((old) => [...old, json.assets[0].image_url]);
+      setImages((old) => [
+        ...old,
+        { id: tokenID, image: json.assets[0].image_url },
+      ]);
     } catch (error) {
       console.log("error", error);
     }
@@ -86,7 +88,7 @@ const Sacrificing = (props) => {
           <div>
             {images.map((d) => (
               <>
-                <img src={d} height="100px" width="100px" />
+                <img src={d.image} height="100px" width="100px" />
               </>
             ))}
           </div>
