@@ -297,13 +297,13 @@ p.blood {
   padding-bottom: 50px;
 }
 .sacrificing-card.left {
-  background-image: url('/images/summon_container.png');
+  background-image: url('/images/step_1.png');
 }
 .sacrificing-card.center {
-  background-image: url('/images/summon_container.png');
+  background-image: url('/images/step_2.png');
 }
 .sacrificing-card.right {
-  background-image: url('/images/summon_container.png');
+  background-image: url('/images/step_3.png');
 }
 
 .image-container {
