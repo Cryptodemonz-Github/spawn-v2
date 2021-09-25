@@ -15,7 +15,6 @@ const Summoning = (props) => {
     }
   }
 
-
   const Summon = async () => {
 
     await props.contract.methods.mintToken(checkAmountFailsafe()).send({
@@ -38,6 +37,7 @@ const Summoning = (props) => {
       props.setConnected(false);
     }
   }, [props.accounts]);
+  
 
   const metaMaskUI = () => {
     if (!props.connected) {

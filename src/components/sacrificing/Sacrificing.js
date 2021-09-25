@@ -79,66 +79,80 @@ const Sacrificing = (props) => {
     setSacrifice([]);
   };
 
-  return (
-    <div>
-      {!props.connected ? (
-        <button onClick={props.ConnectMetaMask}>Connect</button>
-      ) : (
-        <>
-          <button onClick={Sacrifice}>Sacrifice</button>
-          <div className="row ">
-            <div className="col-md-6">
-              <div className="container full">
-                <div className="top-spacer"></div>
-                <div className="row justify-content-md-center">
-                  <div className="col-md-6">
-                    <div className="card border-dark bg-dark mb-3 dialogue-card">
-                      {images.map((d) => (
-                        <div>
-                          <img
-                            src={d.image}
-                            height="100px"
-                            width="100px"
-                            onClick={() => {
-                              setImages(images.filter(({ id }) => id !== d.id));
-                              setSacrifice((old) => [
-                                ...old,
-                                {
-                                  id: d.id,
-                                  image: d.image,
-                                },
-                              ]);
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+  const metaMaskUI = () => {
+    if (!props.connected) {
+      return <button className="metamask-connect" onClick={props.ConnectMetaMask}>Connect to metamask</button>;
+    } else {
+        return (
+          <p>
+           <span className="meta-title">Connected: </span>
+          <span>{props.accounts[0].slice(0,6)}
+          ...
+          {props.accounts[0].slice(props.accounts[0].length - 4, props.accounts[0].length)}
+          </span>
+        </p>
+      );
+    }
+  }
 
-            <div className="col-md-6">
-              <div className="container full">
-                <div className="top-spacer"></div>
-                <div className="row justify-content-md-center">
-                  <div className="col-md-6">
-                    <div className="card border-dark bg-dark mb-3 dialogue-card">
-                      {sacrifice.map((d) => (
-                        <div>
-                          <img src={d.image} height="100px" width="100px" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+  return (
+    <div className="container-xl">
+      <div className="row">
+        <div className="metamask">
+          {metaMaskUI()}
+        </div>
+      </div>
+
+      <div className="top-spacer">
+      </div>
+
+    <div className="row ">
+
+      <div className="col-lg-4">
+        <div className="card border-dark bg-dark mb-3 dialogue-card">
+          {images.map((d) => (
+            <div>
+              <img
+                src={d.image}
+                height="100px"
+                width="100px"
+                onClick={() => {
+                  setImages(images.filter(({ id }) => id !== d.id));
+                  setSacrifice((old) => [
+                    ...old,
+                    {
+                      id: d.id,
+                      image: d.image,
+                    },
+                  ]);
+                }}
+              />
             </div>
-          </div>
-        </>
-      )}
+          ))}
+        </div>
+      </div>
+
+      <div className="col-lg-4">
+        <div className="card border-dark bg-dark mb-3 dialogue-card">
+            {sacrifice.map((d) => (
+              <div>
+                <img src={d.image} height="100px" width="100px" />
+              </div>
+            ))}
+        </div>
+      </div>
+
+
+      <div className="col-lg-4">
+        <div className="card border-dark bg-dark mb-3 dialogue-card">
+          <button onClick={Sacrifice}>Sacrifice</button>
+        </div>
+      </div>
+
+
     </div>
+  </div>
   );
-};
+}
 
 export default Sacrificing;
