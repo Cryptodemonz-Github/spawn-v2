@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 const Sacrificing = (props) => {
   const [web3, setWeb3] = useState(undefined);
   const [contractV1, setContractV1] = useState(undefined);
-  const [tokenIDs, setTokenIDs] = useState([]);
-  const [images, setImages] = useState([]); // URLs from OpenSea
+  const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
   const contractV2Addr = "0x61594bA4fe17Cc204112faFff5cf6a4986F5Ce6D";
+  const [sacrifice, setSacrifice] = useState([]);
 
   // dummy
   let account = "0x21751deC771cE1F6AA6017d8Ca7332f122652FfD";
@@ -34,7 +34,13 @@ const Sacrificing = (props) => {
     }
   }, [props.accounts]);
 
-  const getTokenIDs = async () => {
+  useEffect(() => {
+    if (contractV1 !== undefined) {
+      getTokens();
+    }
+  }, [contractV1]);
+
+  const getTokens = async () => {
     const tokenCount = await contractV1.methods
       .balanceOf(props.accounts[0])
       .call();
@@ -42,22 +48,25 @@ const Sacrificing = (props) => {
       let tokenId = await contractV1.methods
         .tokenOfOwnerByIndex(props.accounts[0], i)
         .call();
-      setTokenIDs((old) => [...old, tokenId]);
+      getImage(tokenId);
     }
 
-    return tokenIDs;
+    //return tokenIDs;
   };
 
   const getImage = async (tokenID) => {
     const url =
       "https://api.opensea.io/api/v1/assets?token_ids=" +
-      { tokenID } +
-      "&asset_contract_address=0xae16529ed90fafc927d774ea7be1b95d826664e3&order_direction=desc&offset=0&limit=20";
+      tokenID +
+      "&asset_contract_address=0xae16529ed90fafc927d774ea7be1b95d826664e3";
     try {
       const response = await fetch(url, { method: "GET" });
       const json = await response.json();
       console.log(json.assets[0].image_url);
-      setImages((old) => [...old, json.assets[0].image_url]);
+      setImages((old) => [
+        ...old,
+        { id: tokenID, image: json.assets[0].image_url },
+      ]);
     } catch (error) {
       console.log("error", error);
     }
@@ -74,7 +83,16 @@ const Sacrificing = (props) => {
       {!props.connected ? (
         <button onClick={props.ConnectMetaMask}>Connect</button>
       ) : (
-        <button onClick={Sacrifice}>Sacrifice</button>
+        <>
+          <button onClick={Sacrifice}>Sacrifice</button>
+          <div>
+            {images.map((d) => (
+              <>
+                <img src={d.image} height="100px" width="100px" />
+              </>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
