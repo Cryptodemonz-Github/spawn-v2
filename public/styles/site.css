@@ -105,6 +105,18 @@ body {
   .custombtn.summon:hover {
     background-image: url('/images/summon_btn_hover.png');
   }
+  .custombtn.sacrifice {
+    background-image: url('/images/sacrifice_btn.png');
+    width: 140px;
+    height: 75px;
+  }
+  .custombtn.sacrifice:hover {
+    background-image: url('/images/sacrifice_btn_hover.png');
+  }
+  .custombtn.sacrifice:disabled,
+  .custombtn.sacrifice[disabled]{
+    background-image: url('/images/sacrifice_btn_disabled.png'); 
+}
   
   @keyframes type2 {
     0% {
@@ -321,4 +333,8 @@ p.blood {
 .character {
   height: auto;
   max-width: 80%
+}
+.metaclick {
+  font-decoration: none;
+  color: default;
 }

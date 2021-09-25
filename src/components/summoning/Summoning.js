@@ -41,31 +41,60 @@ const Summoning = (props) => {
 
   const metaMaskUI = () => {
     if (!props.connected) {
-      return <button className="metamask-connect" onClick={props.ConnectMetaMask}>Connect to metamask</button>;
+      return (
+        <button className="metamask-connect" onClick={props.ConnectMetaMask}>
+          Connect to metamask
+        </button>
+      );
     } else {
-        return (
-          <p>
-           <span className="meta-title">Connected: </span>
-          <span>{props.accounts[0].slice(0,6)}
-          ...
-          {props.accounts[0].slice(props.accounts[0].length - 4, props.accounts[0].length)}
-          </span>
-        </p>
+      return (
+        <button className="metamask-connect" onClick={props.DisconnectMetaMask}>
+          Connected: {props.accounts[0].slice(0, 6)}
+            ...
+            {props.accounts[0].slice(
+              props.accounts[0].length - 4,
+              props.accounts[0].length
+            )}
+        </button>
       );
     }
-  }
+  };
 
-  return (
-    <div className="container-xl">
-      <div className="row">
-        <div className="metamask">
-          {metaMaskUI()}
+  const pageLoggedOut = () => {
+    return (
+      <div className="container-xl">
+      <div className="row justify-content-md-center">
+        <div className="col-md-6">
+          <div className="card border-dark bg-dark mb-3 dialogue-card">
+            <div className="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <img
+                    className="character"
+                    src="/images/lilith.gif"
+                    alt="Lilith"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div className="dialogue-container">
+                    <div className="css-typing">
+                      <p>Human... why aren't you logged into Metamask?</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="top-spacer">
       </div>
+    );
+  }
 
+  const pageLoggedIn = () => {
+    return (
       <div className="row justify-content-md-center">
         <div className="col-md-6">
           <div className="card border-dark bg-dark mb-3 summon-card">
@@ -99,6 +128,30 @@ const Summoning = (props) => {
           </div>
         </div>
       </div>
+    )
+  }
+
+  const pageHandler = () => {
+    if (!props.connected) {
+      return pageLoggedOut();
+    } else {
+      return pageLoggedIn();
+    }
+  }
+
+  return (
+    <div className="container-xl">
+      <div className="row">
+        <div className="metamask">
+          {metaMaskUI()}
+        </div>
+      </div>
+
+      <div className="top-spacer">
+      </div>
+
+      {pageHandler()}
+      
     </div>
   );
 };
