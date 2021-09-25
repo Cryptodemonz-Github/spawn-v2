@@ -103,6 +103,10 @@ const Sacrificing = (props) => {
     }
   };
 
+  const sacrificeBtn = () => {
+    return <p>test</p>;
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -112,15 +116,13 @@ const Sacrificing = (props) => {
       <div className="top-spacer"></div>
 
       <div className="row ">
-        <div className="col-lg-4">
+        <div className="col-xl-4">
           <div className="card border-dark bg-dark mb-3 sacrificing-card left text-center">
             Select which demonz you would like to sacrifice!
             <div className="image-container">
               {images.map((d) => (
                 <img
                   src={d.image}
-                  height="100px"
-                  width="100px"
                   onClick={() => {
                     setImages(images.filter(({ id }) => id !== d.id));
                     setSacrifice((old) => [
@@ -137,15 +139,13 @@ const Sacrificing = (props) => {
           </div>
         </div>
 
-        <div className="col-lg-4">
+        <div className="col-xl-4">
           <div className="card border-dark bg-dark mb-3 sacrificing-card center text-center">
             Confirm that these are the demonz you would like to sacrifice!
             <div className="image-container">
               {sacrifice.map((d) => (
                   <img
                     src={d.image}
-                    height="100px"
-                    width="100px"
                     onClick={() => {
                       setSacrifice(sacrifice.filter(({ id }) => id !== d.id));
                         setImages((old) => [
@@ -162,7 +162,7 @@ const Sacrificing = (props) => {
           </div>
         </div>
 
-        <div className="col-lg-4">
+        <div className="col-xl-4">
           <div className="card border-dark bg-dark mb-3 sacrificing-card right text-center">
             <button onClick={Sacrifice}>Sacrifice</button>
             {props.connected ? (

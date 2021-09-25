@@ -210,7 +210,7 @@ class Wrapper extends React.Component {
     };
 
     return (
-      <div className="container full">
+      <div className="container-xl">
         <div className="top-spacer"></div>
         <div className="row justify-content-md-center">
           <div className="col-md-6">
@@ -219,10 +219,9 @@ class Wrapper extends React.Component {
                 <div class="row">
                   <div class="col text-center">
                     <img
-                      className="mx-auto d-block"
+                      className="character"
                       src="/images/lilith.gif"
-                      alt="Satan the almighty"
-                      height="300px"
+                      alt="Lilith"
                     />
                   </div>
                 </div>

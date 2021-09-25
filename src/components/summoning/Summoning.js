@@ -67,7 +67,7 @@ const Summoning = (props) => {
       </div>
 
       <div className="row justify-content-md-center">
-        <div className="col-sm-5">
+        <div className="col-md-6">
           <div className="card border-dark bg-dark mb-3 summon-card">
             <div className="card-body">
               <div className="row">
