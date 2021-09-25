@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import Demonzv1_testing from "../../config/Demonzv1_testnet.json";
+import DemonzV1ABI from "../../config/DemonzV1ABI.json";
 import mockDemonzv1_testing from "../../config/mockDemonzv1_testnet.json";
 import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
 import { useState, useEffect } from "react";
@@ -12,7 +13,7 @@ const Sacrificing = (props) => {
   useEffect(() => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
-      Demonzv1_testing,
+      DemonzV1ABI,
       "0xae16529ed90fafc927d774ea7be1b95d826664e3"
     );
     setContractV1(contractV1);
@@ -69,7 +70,7 @@ const Sacrificing = (props) => {
     }
 
     await contractV1.methods
-      .setApprovalForAll("0x75c85470F23b5dd690B8E23ff000Af280D7E72F9", true)
+      .setApprovalForAll("0xae16529ed90fafc927d774ea7be1b95d826664e3", true)
       .send({
         from: props.accounts[0],
       });
@@ -105,7 +106,7 @@ const Sacrificing = (props) => {
 
   const sacrificeBtn = () => {
     return <p>test</p>;
-  }
+  };
 
   return (
     <div className="container-fluid">
@@ -144,19 +145,19 @@ const Sacrificing = (props) => {
             Confirm that these are the demonz you would like to sacrifice!
             <div className="image-container">
               {sacrifice.map((d) => (
-                  <img
-                    src={d.image}
-                    onClick={() => {
-                      setSacrifice(sacrifice.filter(({ id }) => id !== d.id));
-                        setImages((old) => [
-                          ...old,
-                          {
-                            id: d.id,
-                            image: d.image,
-                          },
-                  ]);
-                    }}
-                  />
+                <img
+                  src={d.image}
+                  onClick={() => {
+                    setSacrifice(sacrifice.filter(({ id }) => id !== d.id));
+                    setImages((old) => [
+                      ...old,
+                      {
+                        id: d.id,
+                        image: d.image,
+                      },
+                    ]);
+                  }}
+                />
               ))}
             </div>
           </div>
