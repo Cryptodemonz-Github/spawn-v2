@@ -47,7 +47,7 @@ class Wrapper extends React.Component {
       try {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x61" }],
+          params: [{ chainId: "0x1" }],
         });
       } catch (error) {
         console.error(error);
