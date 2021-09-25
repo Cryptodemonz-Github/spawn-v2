@@ -8,7 +8,7 @@ const Sacrificing = (props) => {
   const [web3, setWeb3] = useState(undefined);
   const [contractV1, setContractV1] = useState(undefined);
   const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
-  const contractV2Addr = "0x61594bA4fe17Cc204112faFff5cf6a4986F5Ce6D";
+  const contractV2Addr = "0xaf567146201B99AAb29829cdEC1AF43B2472B176";
   const [sacrifice, setSacrifice] = useState([]);
 
   // dummy
@@ -20,7 +20,7 @@ const Sacrificing = (props) => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
       Demonzv1_testing,
-      "0x5836CBb9d412E8E16B07b24f5096659926E842b2"
+      "0x62c1cDF7F56224a15c36c1229f1E3e61E503af9C"
     );
     setWeb3(web3);
     setContractV1(contractV1);
@@ -40,15 +40,13 @@ const Sacrificing = (props) => {
     }
   }, [contractV1]);
 
-
-
   const getTokens = async () => {
     const tokenCount = await contractV1.methods
-      .balanceOf(account)
+      .balanceOf(props.accounts[0])
       .call();
     for (let i = 0; i < tokenCount; i++) {
       let tokenId = await contractV1.methods
-        .tokenOfOwnerByIndex(account, i)
+        .tokenOfOwnerByIndex(props.accounts[0], i)
         .call();
       getImage(tokenId);
     }
@@ -74,8 +72,6 @@ const Sacrificing = (props) => {
     }
   };
 
-
-
   const Sacrifice = async () => {
     await props.contract.methods.burnV1([10, 11, 12]).send({
       from: props.accounts[0],
@@ -89,12 +85,40 @@ const Sacrificing = (props) => {
       ) : (
         <>
           <button onClick={Sacrifice}>Sacrifice</button>
-          <div>
-            {images.map((d) => (
-              <div>
-                <img src={d.image} height="100px" width="100px" />
+          <div className="row ">
+            <div className="col-md-6">
+              <div className="container full">
+                <div className="top-spacer"></div>
+                <div className="row justify-content-md-center">
+                  <div className="col-md-6">
+                    <div className="card border-dark bg-dark mb-3 dialogue-card">
+                      {images.map((d) => (
+                        <div>
+                          <img src={d.image} height="100px" width="100px" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+
+            <div className="col-md-6">
+              <div className="container full">
+                <div className="top-spacer"></div>
+                <div className="row justify-content-md-center">
+                  <div className="col-md-6">
+                    <div className="card border-dark bg-dark mb-3 dialogue-card">
+                      {images.map((d) => (
+                        <div>
+                          <img src={d.image} height="100px" width="100px" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )}
