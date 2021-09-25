@@ -4,15 +4,24 @@ import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
 
 const Summoning = (props) => {
   const [web3, setWeb3] = useState(undefined);
-  //dummy
-  let amount = 1;
+  const [numToMint, setNumToMint] = useState(1);
 
-  //will take amount
+
+  const checkAmountFailsafe = () => {
+    if (numToMint > 3 || numToMint <= 0 ) {
+      return 1;
+    } else {
+      return numToMint;
+    }
+  }
+
+
   const Summon = async () => {
-    await props.contract.methods.mintToken(amount).send({
+
+    await props.contract.methods.mintToken(checkAmountFailsafe()).send({
       from: props.accounts[0],
-      value: amount * web3.utils.toWei(web3.utils.toBN(60), "milli"),
-      gasLimit: amount * "300000",
+      value: checkAmountFailsafe() * web3.utils.toWei(web3.utils.toBN(60), "milli"),
+      gasLimit: checkAmountFailsafe() * "300000",
       maxPriorityFeePerGas: null,
       maxFeePerGas: null,
     });
@@ -30,13 +39,58 @@ const Summoning = (props) => {
     }
   }, [props.accounts]);
 
+  const metaMaskUI = () => {
+    if (!props.connected) {
+      return <button onClick={props.ConnectMetaMask}>Connect</button>;
+    } else {
+        return <p>youre connected</p>;
+    }
+  }
+
   return (
-    <div>
-      {!props.connected ? (
-        <button onClick={props.ConnectMetaMask}>Connect</button>
-      ) : (
-        <button onClick={Summon}>Summon</button>
-      )}
+    <div className="container-xl">
+      <div className="row">
+        <div className="col">
+          {metaMaskUI()}
+        </div>
+      </div>
+
+      <div className="top-spacer">
+      </div>
+
+      <div className="row justify-content-md-center">
+        <div className="col-sm-5">
+          <div className="card border-dark bg-dark mb-3 dialogue-card">
+            <div className="card-body">
+              <div className="row">
+                <div className="col text-center">
+                  <fieldset className="form-group">
+                    <label for="customRange3" className="form-label">
+                      How many Demonz v2 would you like? <br />
+                      Slide the skull and tell us!
+                    </label>
+                    <input 
+                      type="range" 
+                      min="1" 
+                      max="3" 
+                      step="1" 
+                      value={numToMint} 
+                      onChange={(event) => { setNumToMint(event.target.value) }} 
+                    />
+                    <p className="blood">{numToMint}</p>
+                  </fieldset>
+                  
+                </div>
+              </div>
+              <div className="row">
+                <div className="col text-center mt-2">
+                <button onClick={Summon}>Summon</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
