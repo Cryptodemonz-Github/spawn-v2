@@ -50,8 +50,6 @@ const Sacrificing = (props) => {
         .call();
       getImage(tokenId);
     }
-
-    //return tokenIDs;
   };
 
   const getImage = async (tokenID) => {
@@ -73,7 +71,11 @@ const Sacrificing = (props) => {
   };
 
   const Sacrifice = async () => {
-    await props.contract.methods.burnV1([10, 11, 12]).send({
+    let sacrificeIDs = [];
+    for (let i = 0; i < sacrifice.length; i++) {
+      sacrificeIDs.push(Number(sacrifice[i].id));
+    }
+    await props.contract.methods.burnV1(sacrificeIDs).send({
       from: props.accounts[0],
     });
   };
@@ -94,7 +96,21 @@ const Sacrificing = (props) => {
                     <div className="card border-dark bg-dark mb-3 dialogue-card">
                       {images.map((d) => (
                         <div>
-                          <img src={d.image} height="100px" width="100px" />
+                          <img
+                            src={d.image}
+                            height="100px"
+                            width="100px"
+                            onClick={() => {
+                              setImages(images.filter(({ id }) => id !== d.id));
+                              setSacrifice((old) => [
+                                ...old,
+                                {
+                                  id: d.id,
+                                  image: d.image,
+                                },
+                              ]);
+                            }}
+                          />
                         </div>
                       ))}
                     </div>
@@ -109,7 +125,7 @@ const Sacrificing = (props) => {
                 <div className="row justify-content-md-center">
                   <div className="col-md-6">
                     <div className="card border-dark bg-dark mb-3 dialogue-card">
-                      {images.map((d) => (
+                      {sacrifice.map((d) => (
                         <div>
                           <img src={d.image} height="100px" width="100px" />
                         </div>
