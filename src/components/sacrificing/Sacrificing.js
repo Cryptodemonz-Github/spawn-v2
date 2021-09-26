@@ -73,7 +73,7 @@ const Sacrificing = (props) => {
       }
       
       await contractV1.methods
-        .setApprovalForAll("0xae16529ed90fafc927d774ea7be1b95d826664e3", true)
+        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee ", true)
         .send({
           from: props.accounts[0],
         });
