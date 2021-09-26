@@ -28,6 +28,7 @@ const Sacrificing = (props) => {
     }
   }, [props.accounts]);
 
+
   useEffect(() => {
     if (contractV1 !== undefined && props.accounts[0] !== undefined) {
       getTokens();
@@ -35,15 +36,15 @@ const Sacrificing = (props) => {
   }, [contractV1]);
 
   const getTokens = async () => {
-    const tokenCount = await contractV1.methods
-      .balanceOf(props.accounts[0])
-      .call();
-    for (let i = 0; i < tokenCount; i++) {
-      let tokenId = await contractV1.methods
-        .tokenOfOwnerByIndex(props.accounts[0], i)
+      const tokenCount = await contractV1.methods
+        .balanceOf(props.accounts[0])
         .call();
-      getImage(tokenId);
-    }
+      for (let i = 0; i < tokenCount; i++) {
+        let tokenId = await contractV1.methods
+          .tokenOfOwnerByIndex(props.accounts[0], i)
+          .call();
+        getImage(tokenId);
+      }
   };
 
   const getImage = async (tokenID) => {
@@ -91,6 +92,7 @@ const Sacrificing = (props) => {
         </button>
       );
     } else {
+
       return (
         <button className="metamask-connect" onClick={props.DisconnectMetaMask}>
           Connected: {props.accounts[0].slice(0, 6)}

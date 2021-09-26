@@ -114,6 +114,7 @@ class Wrapper extends React.Component {
     console.log("Loaded successfully");
   }
 
+
   WelcomeMsg() {
     const dialogueContainer = () => {
       switch (this.state.decision) {
@@ -123,67 +124,25 @@ class Wrapper extends React.Component {
               <p>I'm so glad to see you made it, I thought you were chicken!</p>
               <p>We're about to get started</p>
               <p>
-                Do you want to join the{" "}
-                <a
-                  href="#"
-                  onClick={() => {
-                    this.setState({ decision: "summoning" });
-                  }}
-                >
-                  summoning
-                </a>{" "}
-                or{" "}
                 <a
                   href="#"
                   onClick={() => {
                     this.setState({ decision: "sacrifice" });
                   }}
                 >
-                  sacrifice
+                  Join the sacrifice
                 </a>
-                ?
               </p>
             </div>
           );
 
-        case "summoning":
-          return (
-            <div className="css-typing">
-              <p>Excellent choice!</p>
-              <p>
-                We have scored the best goats blood for our summoning. I hope
-                you have brought your ingredients.
-              </p>
-              <p>Now follow me.</p>
-              <div className="row">
-                <div className="col text-center">
-                  <button
-                    type="button"
-                    className="custombtn follow"
-                    onClick={() => {
-                      this.setState({ moveForward: "true" });
-                    }}
-                  ></button>
-                </div>
-                <div className="col text-center">
-                  <button
-                    type="button"
-                    className="custombtn leave"
-                    onClick={() => {
-                      this.setState({ decision: "none" });
-                    }}
-                  ></button>
-                </div>
-              </div>
-            </div>
-          );
 
         case "sacrifice":
           return (
             <div className="css-typing">
               <p>The bloodlust on you!</p>
               <p>
-                Fine, bring your lowley demonz and follow me. Lilith is waiting.
+                Fine, bring your lowley demonz and follow me. 
               </p>
               <div className="row">
                 <div className="col text-center">
@@ -192,15 +151,6 @@ class Wrapper extends React.Component {
                     className="custombtn follow"
                     onClick={() => {
                       this.setState({ moveForward: "true" });
-                    }}
-                  ></button>
-                </div>
-                <div className="col text-center">
-                  <button
-                    type="button"
-                    className="custombtn leave"
-                    onClick={() => {
-                      this.setState({ decision: "none" });
                     }}
                   ></button>
                 </div>
