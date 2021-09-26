@@ -6,20 +6,17 @@ const Summoning = (props) => {
   const [web3, setWeb3] = useState(undefined);
   const [numToMint, setNumToMint] = useState(1);
 
-
   const checkAmountFailsafe = () => {
-    if (numToMint > 3 || numToMint <= 0 ) {
+    if (numToMint > 3 || numToMint <= 0) {
       return 1;
     } else {
       return numToMint;
     }
-  }
+  };
 
   const Summon = async () => {
-
     await props.contract.methods.mintToken(checkAmountFailsafe()).send({
       from: props.accounts[0],
-      value: checkAmountFailsafe() * web3.utils.toWei(web3.utils.toBN(60), "milli"),
       gasLimit: checkAmountFailsafe() * "300000",
       maxPriorityFeePerGas: null,
       maxFeePerGas: null,
@@ -37,7 +34,6 @@ const Summoning = (props) => {
       props.setConnected(false);
     }
   }, [props.accounts]);
-  
 
   const metaMaskUI = () => {
     if (!props.connected) {
@@ -106,22 +102,26 @@ const Summoning = (props) => {
                       How many Demonz v2 would you like? <br />
                       Slide the skull and tell us!
                     </label>
-                    <input 
-                      type="range" 
-                      min="1" 
-                      max="3" 
-                      step="1" 
-                      value={numToMint} 
-                      onChange={(event) => { setNumToMint(event.target.value) }} 
+                    <input
+                      type="range"
+                      min="1"
+                      max="3"
+                      step="1"
+                      value={numToMint}
+                      onChange={(event) => {
+                        setNumToMint(event.target.value);
+                      }}
                     />
                     <p className="blood">{numToMint}</p>
                   </fieldset>
-                  
                 </div>
               </div>
               <div className="row">
                 <div className="col text-center mt-2">
-                <button className="custombtn summon" onClick={Summon}></button>
+                  <button
+                    className="custombtn summon"
+                    onClick={Summon}
+                  ></button>
                 </div>
               </div>
             </div>
