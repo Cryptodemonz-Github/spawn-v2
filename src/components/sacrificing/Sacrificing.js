@@ -15,7 +15,7 @@ const Sacrificing = (props) => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
       Demonzv1_production,
-      "0x3148e680b34f007156e624256986d8ba59ee82ee "
+      "0xae16529ed90fafc927d774ea7be1b95d826664e3 "
     );
     setContractV1(contractV1);
   }, []);
