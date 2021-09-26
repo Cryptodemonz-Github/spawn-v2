@@ -15,7 +15,7 @@ const Sacrificing = (props) => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
       Demonzv1_production,
-      "0xae16529ed90fafc927d774ea7be1b95d826664e3 "
+      "0xae16529ed90fafc927d774ea7be1b95d826664e3"
     );
     setContractV1(contractV1);
   }, []);
@@ -23,11 +23,11 @@ const Sacrificing = (props) => {
   useEffect(() => {
     if (props.accounts !== undefined && props.accounts.length > 0) {
       props.setConnected(true);
+      if (contractV1 !== undefined) getTokens();
     } else {
       props.setConnected(false);
     }
   }, [props.accounts]);
-
 
   useEffect(() => {
     if (contractV1 !== undefined && props.accounts[0] !== undefined) {
@@ -36,15 +36,15 @@ const Sacrificing = (props) => {
   }, [contractV1]);
 
   const getTokens = async () => {
-      const tokenCount = await contractV1.methods
-        .balanceOf(props.accounts[0])
+    const tokenCount = await contractV1.methods
+      .balanceOf(props.accounts[0])
+      .call();
+    for (let i = 0; i < tokenCount; i++) {
+      let tokenId = await contractV1.methods
+        .tokenOfOwnerByIndex(props.accounts[0], i)
         .call();
-      for (let i = 0; i < tokenCount; i++) {
-        let tokenId = await contractV1.methods
-          .tokenOfOwnerByIndex(props.accounts[0], i)
-          .call();
-        getImage(tokenId);
-      }
+      getImage(tokenId);
+    }
   };
 
   const getImage = async (tokenID) => {
@@ -71,9 +71,9 @@ const Sacrificing = (props) => {
       for (let i = 0; i < sacrifice.length; i++) {
         sacrificeIDs.push(Number(sacrifice[i].id));
       }
-      
+
       await contractV1.methods
-        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee ", true)
+        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee", true)
         .send({
           from: props.accounts[0],
         });
@@ -81,7 +81,7 @@ const Sacrificing = (props) => {
         from: props.accounts[0],
       });
       setSacrifice([]);
-  }
+    }
   };
 
   const metaMaskUI = () => {
@@ -95,11 +95,11 @@ const Sacrificing = (props) => {
       return (
         <button className="metamask-connect" onClick={props.DisconnectMetaMask}>
           Connected: {props.accounts[0].slice(0, 6)}
-            ...
-            {props.accounts[0].slice(
-              props.accounts[0].length - 4,
-              props.accounts[0].length
-            )}
+          ...
+          {props.accounts[0].slice(
+            props.accounts[0].length - 4,
+            props.accounts[0].length
+          )}
         </button>
       );
     }
@@ -107,21 +107,24 @@ const Sacrificing = (props) => {
 
   const sacrificeCheck = () => {
     if (sacrifice.length < 3) {
-      return ['There is not enough demonz to sacrifice.', false];
+      return ["There is not enough demonz to sacrifice.", false];
     } else if (sacrifice.length > 9) {
-      return ['You are trying to sacrifice too many Demonz.', false];
+      return ["You are trying to sacrifice too many Demonz.", false];
     } else if (sacrifice.length % 3 !== 0) {
-      return ['You have an odd number of Demonz, the correct values are 3, 6, and 9.', false];
+      return [
+        "You have an odd number of Demonz, the correct values are 3, 6, and 9.",
+        false,
+      ];
     } else {
-      return ['', true];
+      return ["", true];
     }
-  }
+  };
 
   const sacrificeBtn = () => {
     let msg = (
-        <div>
-          <p className="text-danger">{ sacrificeCheck()[0] }</p>
-        </div>
+      <div>
+        <p className="text-danger">{sacrificeCheck()[0]}</p>
+      </div>
     );
 
     if (sacrificeCheck()[1]) {
@@ -130,38 +133,43 @@ const Sacrificing = (props) => {
           {msg}
           <button className="custombtn sacrifice" onClick={Sacrifice}></button>
         </div>
-      )
+      );
     } else {
       return (
         <div>
           {msg}
-          <button className="custombtn sacrifice" onClick={Sacrifice} disabled></button>
+          <button
+            className="custombtn sacrifice"
+            onClick={Sacrifice}
+            disabled
+          ></button>
         </div>
-      )
+      );
     }
-  }
+  };
 
   const pageLoggedOut = () => {
     return (
       <div className="container-xl">
-      <div className="row justify-content-md-center">
-        <div className="col-md-6">
-          <div className="card border-dark bg-dark mb-3 dialogue-card">
-            <div className="card-body">
-              <div class="row">
-                <div class="col text-center">
-                  <img
-                    className="character"
-                    src="/images/lilith.gif"
-                    alt="Lilith"
-                  />
+        <div className="row justify-content-md-center">
+          <div className="col-md-6">
+            <div className="card border-dark bg-dark mb-3 dialogue-card">
+              <div className="card-body">
+                <div class="row">
+                  <div class="col text-center">
+                    <img
+                      className="character"
+                      src="/images/lilith.gif"
+                      alt="Lilith"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div className="dialogue-container">
-                    <div className="css-typing">
-                      <p>Human... why aren't you logged into Metamask?</p>
+                <div class="row">
+                  <div class="col">
+                    <div className="dialogue-container">
+                      <div className="css-typing">
+                        <p>Human... why aren't you logged into Metamask?</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -170,75 +178,77 @@ const Sacrificing = (props) => {
           </div>
         </div>
       </div>
-      </div>
     );
-  }
+  };
 
   const pageLoggedIn = () => {
     return (
-    <div className="row">
-      <div className="col-xl-4">
-        <div className="card border-dark bg-dark mb-3 sacrificing-card left text-center">
-          Select which demonz you would like to sacrifice! <br />
-          <small>If your NFTs are not loading please refresh the page!</small>
-          <div className="image-container">
-            {images.map((d) => (
-              <img
-                src={d.image}
-                onClick={() => {
-                  setImages(images.filter(({ id }) => id !== d.id));
-                  setSacrifice((old) => [
-                    ...old,
-                    {
-                      id: d.id,
-                      image: d.image,
-                    },
-                  ]);
-                }}
-              />
-            ))}
+      <div className="row">
+        <div className="col-xl-4">
+          <div className="card border-dark bg-dark mb-3 sacrificing-card left text-center">
+            Select which demonz you would like to sacrifice! <br />
+            <small>If your NFTs are not loading please refresh the page!</small>
+            <div className="image-container">
+              {images.map((d) => (
+                <img
+                  src={d.image}
+                  onClick={() => {
+                    setImages(images.filter(({ id }) => id !== d.id));
+                    setSacrifice((old) => [
+                      ...old,
+                      {
+                        id: d.id,
+                        image: d.image,
+                      },
+                    ]);
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="col-xl-4">
-        <div className="card border-dark bg-dark mb-3 sacrificing-card center text-center">
-          Confirm that these are the Demonz you would like to sacrifice! <br />
-          <div className="image-container">
-            {sacrifice.map((d) => (
+        <div className="col-xl-4">
+          <div className="card border-dark bg-dark mb-3 sacrificing-card center text-center">
+            Confirm that these are the Demonz you would like to sacrifice!{" "}
+            <br />
+            <div className="image-container">
+              {sacrifice.map((d) => (
                 <img
                   src={d.image}
                   onClick={() => {
                     setSacrifice(sacrifice.filter(({ id }) => id !== d.id));
-                      setImages((old) => [
-                        ...old,
-                        {
-                          id: d.id,
-                          image: d.image,
-                        },
-                ]);
+                    setImages((old) => [
+                      ...old,
+                      {
+                        id: d.id,
+                        image: d.image,
+                      },
+                    ]);
                   }}
                 />
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="col-xl-4">
+          <div className="card border-dark bg-dark mb-3 sacrificing-card right text-center">
+            <h4>Rules Of The Sacrifice</h4>
+            <ul className="mb-5">
+              <li>We require 3 v1 Demonz for 1 v2 Demonz.</li>
+              <li>You can sacrifice a maximum of 9 Demonz per transaction.</li>
+              <li>
+                <small className="text-muted">Your eternal soul.</small>
+              </li>
+              <li>You can summon a total of 20 v2.</li>
+            </ul>
+            {sacrificeBtn()}
           </div>
         </div>
       </div>
-
-      <div className="col-xl-4">
-        <div className="card border-dark bg-dark mb-3 sacrificing-card right text-center">
-          <h4>Rules Of The Sacrifice</h4>
-          <ul className="mb-5">
-            <li>We require 3 v1 Demonz for 1 v2 Demonz.</li>
-            <li>You can sacrifice a maximum of 9 Demonz per transaction.</li>
-            <li><small className="text-muted">Your eternal soul.</small></li>
-            <li>You can summon a total of 20 v2.</li>
-          </ul>
-          {sacrificeBtn()}
-        </div>
-      </div>
-    </div>
-    )
-  }
+    );
+  };
 
   const pageHandler = () => {
     if (!props.connected) {
@@ -246,7 +256,7 @@ const Sacrificing = (props) => {
     } else {
       return pageLoggedIn();
     }
-  }
+  };
 
   return (
     <div className="container-fluid">

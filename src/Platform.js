@@ -114,7 +114,6 @@ class Wrapper extends React.Component {
     console.log("Loaded successfully");
   }
 
-
   WelcomeMsg() {
     const dialogueContainer = () => {
       switch (this.state.decision) {
@@ -136,14 +135,11 @@ class Wrapper extends React.Component {
             </div>
           );
 
-
         case "sacrifice":
           return (
             <div className="css-typing">
               <p>The bloodlust on you!</p>
-              <p>
-                Fine, bring your lowley demonz and follow me. 
-              </p>
+              <p>Fine, bring your lowley demonz and follow me.</p>
               <div className="row">
                 <div className="col text-center">
                   <button
