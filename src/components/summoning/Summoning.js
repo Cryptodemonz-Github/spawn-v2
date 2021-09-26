@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
-import Demonzv2_testing from "../../config/Demonzv2_testnet.json";
+
 
 const Summoning = (props) => {
   const [web3, setWeb3] = useState(undefined);
@@ -151,7 +151,7 @@ const Summoning = (props) => {
       </div>
 
       {pageHandler()}
-      
+
     </div>
   );
 };

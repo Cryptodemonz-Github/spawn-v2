@@ -3,6 +3,7 @@ import Web3 from "web3";
 import Summoning from "./components/summoning/Summoning";
 import Sacrificing from "./components/sacrificing/Sacrificing";
 import Demonzv2_testing from "./config/Demonzv2_testnet.json";
+import Demonzv2_production from "./config/Demonzv2_production.json";
 
 class Wrapper extends React.Component {
   constructor() {
@@ -30,9 +31,9 @@ class Wrapper extends React.Component {
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(
-        Demonzv2_testing,
+        Demonzv2_production,
         //"0x840244370Cabc0b2F09751D071799Ca81cD1BCeC"
-        "0xC22219793e826c7b9585FFecB036CAbd9B00608c"
+        "0xcaE206Ea56A7D78b8570D69D6a7467164fc17612"
       );
       this.setState({ web3: web3 });
       this.setState({ contract: contract });
