@@ -92,7 +92,6 @@ const Sacrificing = (props) => {
         </button>
       );
     } else {
-
       return (
         <button className="metamask-connect" onClick={props.DisconnectMetaMask}>
           Connected: {props.accounts[0].slice(0, 6)}
@@ -180,7 +179,8 @@ const Sacrificing = (props) => {
     <div className="row">
       <div className="col-xl-4">
         <div className="card border-dark bg-dark mb-3 sacrificing-card left text-center">
-          Select which demonz you would like to sacrifice!
+          Select which demonz you would like to sacrifice! <br />
+          <small>If your NFTs are not loading please refresh the page!</small>
           <div className="image-container">
             {images.map((d) => (
               <img
