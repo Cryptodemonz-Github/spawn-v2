@@ -10,6 +10,8 @@ const Sacrificing = (props) => {
   const [contractV1, setContractV1] = useState(undefined);
   const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
   const [sacrifice, setSacrifice] = useState([]);
+  const [isApproved, setIsApproved] = useState();
+  let shouldApprove = false;
 
   useEffect(() => {
     const web3 = new Web3(window.ethereum);
@@ -66,17 +68,26 @@ const Sacrificing = (props) => {
   };
 
   const Sacrifice = async () => {
+    
     if (sacrificeCheck()[1]) {
       let sacrificeIDs = [];
       for (let i = 0; i < sacrifice.length; i++) {
         sacrificeIDs.push(Number(sacrifice[i].id));
       }
-
       await contractV1.methods
-        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee", true)
-        .send({
-          from: props.accounts[0],
+        .isApprovedForAll(props.accounts[0], "0x3148e680b34f007156e624256986d8ba59ee82ee")
+        .call()
+        .then(res => {
+          shouldApprove = res
+        })
+      
+      if (shouldApprove === false) {
+        await contractV1.methods
+          .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee", true)
+          .send({
+            from: props.accounts[0],
         });
+      }
       await props.contract.methods.burnV1(sacrificeIDs).send({
         from: props.accounts[0],
       });
