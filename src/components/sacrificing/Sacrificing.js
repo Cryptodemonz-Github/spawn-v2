@@ -10,7 +10,6 @@ const Sacrificing = (props) => {
   const [contractV1, setContractV1] = useState(undefined);
   const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
   const [sacrifice, setSacrifice] = useState([]);
-  const [isApproved, setIsApproved] = useState();
   let shouldApprove = false;
 
   useEffect(() => {
