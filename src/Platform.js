@@ -142,7 +142,7 @@ class Wrapper extends React.Component {
             <div className="css-typing">
               <p>The bloodlust on you!</p>
               <p>
-                Fine, bring your lowley demonz and follow me. 
+                Fine, bring your demonz and follow me. 
               </p>
               <div className="row">
                 <div className="col text-center">

@@ -10,12 +10,13 @@ const Sacrificing = (props) => {
   const [contractV1, setContractV1] = useState(undefined);
   const [images, setImages] = useState([]); // tokenIDs and URLs from OpenSea
   const [sacrifice, setSacrifice] = useState([]);
+  const [waitPopup, setWaitPopup] = useState(false);
 
   useEffect(() => {
     const web3 = new Web3(window.ethereum);
     const contractV1 = new web3.eth.Contract(
       Demonzv1_production,
-      "0xae16529ed90fafc927d774ea7be1b95d826664e3 "
+      "0xae16529ed90fafc927d774ea7be1b95d826664e3"
     );
     setContractV1(contractV1);
   }, []);
@@ -68,12 +69,13 @@ const Sacrificing = (props) => {
   const Sacrifice = async () => {
     if (sacrificeCheck()[1]) {
       let sacrificeIDs = [];
+      setWaitPopup(true);
       for (let i = 0; i < sacrifice.length; i++) {
         sacrificeIDs.push(Number(sacrifice[i].id));
       }
       
       await contractV1.methods
-        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee ", true)
+        .setApprovalForAll("0x3148e680b34f007156e624256986d8ba59ee82ee", true)
         .send({
           from: props.accounts[0],
         });
@@ -139,6 +141,30 @@ const Sacrificing = (props) => {
         </div>
       )
     }
+  }
+
+  const pleaseWaitPopup = () => {
+    return (
+      <div className="container-xl">
+        <div className="row justify-content-md-center">
+          <div className="col-md-6">
+            <div className="card border-dark bg-dark mb-3 dialogue-card">
+              <div className="card-body">
+                <div class="row">
+                  <div class="col text-center">
+                  
+                        <h2>Your sacrifice is pending</h2>
+                        <p>You will recieve two transaction. The second transaction will come after the first has completed.</p>
+                        <p>Please keep this window open</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const pageLoggedOut = () => {
@@ -243,6 +269,8 @@ const Sacrificing = (props) => {
   const pageHandler = () => {
     if (!props.connected) {
       return pageLoggedOut();
+    } else if (waitPopup) {
+      return pleaseWaitPopup();
     } else {
       return pageLoggedIn();
     }
